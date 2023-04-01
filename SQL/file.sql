@@ -32,6 +32,7 @@ CREATE TABLE Paiement
     idClient INT NOT NULL ,
     idPanier INT NOT NULL,
     date VARCHAR(10),
+    enCours BOOLEAN,
     FOREIGN KEY (idClient) REFERENCES Client(idClient),
     FOREIGN KEY (idPanier) REFERENCES Panier(idPanier)
 
