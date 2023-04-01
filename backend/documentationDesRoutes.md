@@ -31,7 +31,7 @@ Retourne la liste des articles présents dans la DB
 GET "api/item/{idArticle}"
 ```json
 Exemple :
-GET "/api/item/1"
+GET "/api/item?idProduit=1"
 "article":
     {
         "idProduit":1.0,
@@ -44,10 +44,10 @@ Retourne l'article correspondant à l'ID
 
 ## Le panier 
 
-GET "api/panier/{idClient}"
+GET "api/panier{idClient}"
 ```json
 Exemple :
-GET "/api/panier/1"
+GET "/api/panier?idClient=1"
 "panier":
     {
         "idProduit":1,
@@ -59,10 +59,10 @@ Retourne le pannier correspondant à l'ID du Client
 
 ## Ajouter un article
 
-POST "api/panier/{idClient}/ajouter/{idArticle}"
+POST "api/panier/ajouter?{idClient}&{idArticle}"
 ```json
 Exemple :
-POST "/api/panier/1/ajouter/1"
+POST "/api/panier/ajouter?idClient=1&idArticle=1"
 "article":
     {
         "idProduit":1.0,
@@ -75,10 +75,10 @@ Retourne l'article ajouté
 
 ## Retirer un article
 
-DELETE "api/panier/{idClient}/retirer/{idArticle}"
+DELETE "api/panier/retirer?{idClient}&{idArticle}"
 ```json
 Exemple :
-DELETE "/api/panier/1/retirer/1"
+DELETE "/api/panier/retirer?idClient=1&idArticle=1"
 "article":
     {
         "idProduit":1.0,
