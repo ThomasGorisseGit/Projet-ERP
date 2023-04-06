@@ -2,8 +2,8 @@
 
 require_once "../_common/connection.php";
 
-$query = "SELECT * FROM Produit";
-$stmt = $db->prepare($query);
+$q= "SELECT * FROM Produit INNER JOIN Stock ON Stock.idProduit = Produit.idProduit";
+$stmt = $db->prepare($q);
 $stmt->execute();
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

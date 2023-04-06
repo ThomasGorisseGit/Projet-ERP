@@ -48,6 +48,14 @@ CREATE TABLE PanierProduit
 
 );
 
+CREATE TABLE Stock
+(
+   idStock INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   quantite INT NOT NULL,
+   idProduit INT NOT NULL,
+   FOREIGN KEY (idProduit) REFERENCES Produit(idProduit)
+)
+
 
 
 # Jeu de données :

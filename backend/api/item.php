@@ -1,6 +1,5 @@
 <?php
 require_once "../_common/connection.php";
-
 if(isset($_GET["idProduit"]))
 {
 

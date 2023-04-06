@@ -1,15 +1,25 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 require_once "../../_common/connection.php";
 
 
-if(isset($_POST["idArticle"]))
+
+
+
+    
+
+if(isset($_POST["list"]))
 {
+    $var = json_decode($_POST["list"],true);
+
     $montant = 0 ;
     $q = "SELECT * FROM Panier WHERE enCours=true";
     $stmt = $db->prepare($q);
     $stmt->execute();
     $idPanier = $stmt->fetch(PDO::FETCH_ASSOC)["idPanier"];
-    foreach($_POST as $row)
+    foreach($var as $row)
     {
         $idArticle = $row[0];
         $quantite = $row[1];
@@ -26,8 +36,14 @@ if(isset($_POST["idArticle"]))
 
     updatePrice($db,$montant);
     createNewPanier($db);
-}
+    $tab = [
+        "state"=>true
+    ];
+    echo json_encode($tab);
 
+
+}
+  
 
 
 
