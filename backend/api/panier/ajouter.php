@@ -12,17 +12,17 @@ require_once "../../_common/connection.php";
 
 if(isset($_POST["list"]))
 {
-    $var = json_decode($_POST["list"],true);
+    $var = explode(",",$_POST["list"]);
 
     $montant = 0 ;
     $q = "SELECT * FROM Panier WHERE enCours=true";
     $stmt = $db->prepare($q);
     $stmt->execute();
     $idPanier = $stmt->fetch(PDO::FETCH_ASSOC)["idPanier"];
-    foreach($var as $row)
+    for($i=0;$i<count($var)-1;$i++)
     {
-        $idArticle = $row[0];
-        $quantite = $row[1];
+        $idArticle = $var[$i];
+        $quantite = $var[$i+1];
 
 
         $montant += getPrice($db,$idArticle,$quantite);

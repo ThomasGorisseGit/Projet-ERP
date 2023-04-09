@@ -1,218 +1,247 @@
-# Sprint 1 : 
 
+# GET 
+## items : 
+Renvoie la liste des Produits
 
-## Liste d'articles
+Route : {GET} http://64.225.109.223/backend/api/items
 
-GET : "backend/api/items" 
+ARGS : 
+
+Retour : 
 ```json
-Exemple :
-GET "/api/items"
-"articles":[
-    {
-        "idProduit":1,
-        "nom":"Chips",
-        "prix":10.0,
-        "description":"trop bon"
-    },
-    {
-        "idProduit":2.0,
-        "nom":"Donuts",
-        "prix":5.0,
-        "description":"très sucré"
-    }
+[
+	{
+		"idProduit": 1,
+		"nom": "Chips au vinaigre",
+		"prix": 5.2,
+		"description": "Les meilleures chips du marché",
+		"idStock": 2,
+		"quantite": 135
+	},
+	{
+		"idProduit": 2,
+		"nom": "Caramel",
+		"prix": 1.99,
+		"description": "Caramel beurre sale miam",
+		"idStock": 3,
+		"quantite": 274
+	}
 ]
 ```
-Retourne la liste des articles présents dans la DB
 
+## item : 
+Renvoie un produit
 
+Route : {GET} http://64.225.109.223/backend/api/item?idProduit=1
 
-## Un article
+ARGS : 
 
-GET "backend/api/item?{idArticle}"
+Retour : 
 ```json
-Exemple :
-GET "/api/item?idProduit=1"
-"article":
-    {
-        "idProduit":1.0,
-        "nom":"Chips",
-        "prix":10.0,
-        "description":"trop bon"
-    }
-```
-Retourne l'article correspondant à l'ID
-
-## Le panier 
-
-GET "backend/api/panier"
-```json
-Exemple :
-GET "/api/panier"
-"panier":
-    {
-        "idProduit":1,
-        "idClient":1,
-        "montant":120.97,
-    }
-```
-Retourne le panier en cours 
-
-## Ajouter un panier
-La méthode ajoute une liste d'element au panier, et définit le panier comme terminé.
-Elle en créé un nouveau.
-POST "backend/api/panier/ajouter"
-BODY [ [{idArticle},{quantite}],[{idArticle},{quantite}] ] , {montant} -> list
-```json
-Exemple :
-POST "/api/panier/ajouter"
-BODY [ [1,1],[2,1] ]
-
-"panier":
-    {
-        "idProduit":1,
-        "idClient":1,
-        "montant":120.97,
-    }
-```
-Retourne le panier en cours
-
-# Sprint 2
-
-## TODO
-- Faire toutes les routes du site
-- Modifier un produit 
-- Faire une réappro
-
-## Modifier un produit :
-
-Request Post, prends en body l'id de l'article, l'attribut a modifier et sa valeur
-
-POST "backend/api/item/modifier"
-BODY (idProduit,champ,valeur)
-```json
-
-BODY "idProduit=1, champ=nom, valeur=Chips au vinaigre"
-"article" :
-{
-    "idProduit":1,
-    "nom" : "Chips au vinaigre",
-    "prix": 5.10,
-    "description":"craquantes !" 
-}
-```
-## Ajouter un produit
-BODY : nom, prix, description, quantite
-```json
-BODY : "('Vin',12.99,'Domaine DuBouchon',12)"
-"article":
-{
-    "idProduit":53,
-    "nom" : "Vin",
-    "prix": 12.99,
-    "description":"Domaine DuBouchon"
-}
-
+[
+	{
+		"idProduit": 1,
+		"nom": "Chips au vinaigre",
+		"prix": 5.2,
+		"description": "Les meilleures chips du marché",
+		"idStock": 2,
+		"quantite": 135
+	}
+]
 ```
 
+## panier : 
+Renvoie le panier en cours
 
+Route : {GET} http://64.225.109.223/backend/api/panier
+
+ARGS : 
+
+Retour : 
+```json
+[
+	{
+		"idProduit": 1,
+		"nom": "Chips au vinaigre",
+		"prix": 5.2,
+		"description": "Les meilleures chips du marché",
+		"idStock": 2,
+		"quantite": 1
+	}
+]
+```
+## afficher les fournisseur: 
+Renvoie la liste des fournisseurs
+
+Route : {GET} http://64.225.109.223/backend/api/fournisseur/display
+
+ARGS : 
+
+Retour : 
+```json
+[
+	{
+		"idFournisseur": 1,
+		"numeroSiret": "Jean",
+		"nom": "123123123"
+	}
+]
+```
+
+## Liste produit fournisseur 
+Renvoie la liste des produits d'un fournisseurs
+
+Route : {GET} http://64.225.109.223/backend/api/fournisseur/products
+
+ARGS : 
+
+Retour : 
+```json
+[
+	{
+		"idFournisseur": 1,
+		"numeroSiret": "Jean",
+		"nom": "123123123",
+        "articles" : [
+            {
+                "idProduit": 1,
+		        "nom": "Chips au vinaigre",
+		        "prix": 5.2,
+		        "description": "Les meilleures chips du marché",
+		        "idStock": 2,
+		        "quantite": 1
+            }
+        ]
+	}
+]
+```
+
+## Liste des réappros
+Renvoie la liste des réappros
+
+Route : {GET} http://64.225.109.223/backend/api/reapprovisionnement/display
+ARGS : 
+
+Retour : 
+```json
+[
+	{
+		"idReapprovisionnement": 8,
+		"idFournisseur": 1,
+		"idStock": 24,
+		"idProduit": 23,
+		"dateCommande": "2023-04-06",
+		"dateReception": "2023-05-15",
+		"quantite": 100,
+		"montant": 300
+	}
+]
+```
+# POST
+
+## Ajouter Panier
+Ajoute une liste de produits au panier et en créé un nouveau.
+
+Route : {POST} http://64.225.109.223/backend/api/panier/ajouter
+
+ARGS : MultiPart
+
+"list" [ [{idProduit},{quantite}] , [{idProduit},{quantite}] ]
+
+
+Retour : 
+```json
+[
+	{
+        "status":true
+	}
+]
+```
+
+
+## Ajouter produit
+Ajoute un produit a la liste des produits
+
+Route : {POST} http://64.225.109.223/backend/api/item/ajouter
+
+ARGS : MultiPart
+
+"nom" : "Tarte"
+"prix" : 4.99
+"description" : "Miam"
+"quantite" : 1
+
+
+Retour : 
+```json
+[
+	{
+        "status":true
+	}
+]
+```
+
+## Modifier produit
+Modifie un produit 
+
+Route : {POST} http://64.225.109.223/backend/api/item/modifier
+
+ARGS : MultiPart
+
+"idProduit" : "3"
+"champ" : "nom"
+"valeur" : "Essence SP94"
+
+
+Retour : 
+```json
+[
+	{
+        "status":true
+	}
+]
+```
 
 ## Ajouter un fournisseur
-POST : "backend/api/fournisseur/ajouter"
-BODY : (numeroSiret, nom)
-```json 
-BODY "(12345678901234,Michel")
-"fournisseur":
-{
-    "idFournisseur":1,
-    "numeroSiret":12345678901234,
-    "nom":"Kiloutoutou"
-}
+Ajoute un fournisseur
 
-```
+Route : {POST} http://64.225.109.223/backend/api/fournisseur/ajouter
 
-## Voir les fournisseurs 
+ARGS : MultiPart
 
-GET : "backend/api/fournisseur/display"
+"nom" : "John"
+"numeroSiret" : 4561213
+
+
+Retour : 
 ```json
-"fournisseurs":
 [
-{
-    "idFournisseur":1,
-    "numeroSiret":12345678901234,
-    "nom":"Kiloutoutou"
-},
-{
-    "idFournisseur":2,
-    "numeroSiret":12345678901234,
-    "nom":"Tatol"
-}
+	{
+        "status":true
+	}
 ]
 ```
 
-## Voir les produits de tous les fournisseurs
 
-GET : "backend/api/fournisseur/products"
 
+## Ajouter un reapprovisionnement
+Ajoute un reapprovisionnement
+
+Route : {POST} http://64.225.109.223/backend/api/reapprovisionnement/ajouter
+
+ARGS : MultiPart
+
+"idFournisseur" : 1
+"idProduit" : 32
+"quantite" : 100
+"montant" : 160.99
+
+
+Retour : 
 ```json
-"fournisseurs":
 [
-{
-    "idFournisseur":1,
-    "numeroSiret":12345678901234,
-    "nom":"Kiloutoutou",
-    "articles":[
-        {
-            "idProduit":1,
-            "nom" : "Chips au vinaigre",
-            "prix": 5.10,
-            "description":"craquantes !" 
-        },
-        {
-            "idProduit":2,
-            "nom" : "Sandwich",
-            "prix": 3.10,
-            "description":"fondant !" 
-        }
-    ]
-},
-{
-    "idFournisseur":2,
-    "numeroSiret":12345678901234,
-    "nom":"Tatol",
-    "articles":[
-        {
-            "idProduit":1,
-            "nom" : "Chips au vinaigre",
-            "prix": 5.10,
-            "description":"craquantes !" 
-        },
-        {
-            "idProduit":2,
-            "nom" : "Sandwich",
-            "prix": 3.10,
-            "description":"fondant !" 
-        }
-
-    ]
-}
+	{
+        "status":true
+	}
 ]
 ```
-
-## Faire une réappro
-
-POST : "backend/api/reapprovisionnement/ajouter"
-BODY : [idFournisseur,idProduit,quantite,montant]
-
-```json
-
-    BODY: (1,1,23,120.99)
-
-    "return":{
-        "state":true
-    }
-
-```
-
-
-# Sprint X 
-L'état des pompes. [https://lucid.app/lucidchart/7379f8c8-1c77-49d6-8a02-ba473dc631ba/edit?invitationId=inv_72d74c01-0490-4aeb-825b-23b9efa96747&page=J_txk-1sJeMi#]

@@ -208,3 +208,17 @@ INSERT INTO Produit(nom,prix,description) VALUES
 
 
 
+ALTER TABLE ERP.Reapprovisionnement ADD COLUMN etat INT DEFAULT 0;
+
+CREATE TABLE Employe (
+    idEmploye INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    identifiant VARCHAR(255),
+    motDePasse VARCHAR(255),
+    nom VARCHAR(20),
+    prenom VARCHAR(20),
+    email VARCHAR(20),
+    adresse VARCHAR(20),
+    salaire VARCHAR(20),
+    estGerant BOOLEAN DEFAULT false
+);
+
