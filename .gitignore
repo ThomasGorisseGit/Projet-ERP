@@ -1,1 +1,4 @@
 local.php
+generateToken.php
+verifyToken.php
+vendor/

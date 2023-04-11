@@ -7,23 +7,6 @@ $stmt = $db->prepare($q);
 $stmt->execute();
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-/*
-    Object = {
-        "idPanier"=1,
-        "idClient"=NULL,
-        "montant"=120,
-        "idPanierProduit"=[
-            {
-                "nom"=truc,
-                "quantite"=3,
-                "prix"=1
-            },
-            {
-
-            }
-        ]
-    }
-*/
 $all = [];
 foreach($data as $row)
 {

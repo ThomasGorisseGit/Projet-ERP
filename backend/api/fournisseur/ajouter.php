@@ -2,8 +2,10 @@
 
 require_once("../../_common/connection.php");
 
-if(isset($_POST["nom"])&& !alreadyExistst($db,$_POST["numeroSiret"],$_POST["nom"]))
+if(isset($_POST["nom"])&& alreadyExistst($db,$_POST["numeroSiret"],$_POST["nom"]))
 {
+  
+
     $list = explode(",",$_POST["products"]);
 
     $q="INSERT INTO Fournisseur(nom,numeroSiret) VALUES (?,?)";
@@ -23,6 +25,7 @@ if(isset($_POST["nom"])&& !alreadyExistst($db,$_POST["numeroSiret"],$_POST["nom"
             $item*55
         ));
     }
+
     $tab = [
         "status" => true
     ];
@@ -44,8 +47,7 @@ function alreadyExistst($db, $siret, $nom)
     $q="SELECT * FROM Fournisseur WHERE numeroSiret = ? AND nom = ?";
     $stmt = $db->prepare($q);
     $stmt->execute(array($siret,$nom));
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if(sizeof($data)==1) return true;
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($data==false) return true;
     else echo json_encode(["status" => false,"error"=>"AlreadyExists"]);
-    die("exit code 0 OMGERROR");
 }
