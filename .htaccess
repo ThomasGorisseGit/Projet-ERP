@@ -1,9 +1,12 @@
-<IfModule mod_rewrite.c>
+
+
+
+
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
-# Set the headers for the restful api
-Header always set Access-Control-Allow-Origin *
-# Header always set Access-Control-Max-Age "1000"
-Header always set Access-Control-Allow-Headers "*"
-</IfModule>
+# If an existing asset or directory is requested go to it as it is
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# If the requested resource doesn't exist, use index.html
+RewriteRule ^ /frontend/index.html
